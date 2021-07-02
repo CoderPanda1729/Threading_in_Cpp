@@ -83,67 +83,67 @@ int main() {
 }
 
 
-EXAMPLE: try_lock_until
+// EXAMPLE: try_lock_until
 
-Waits until specified timeout_time has been reached or the lock is acquired, whichever comes first.
+// Waits until specified timeout_time has been reached or the lock is acquired, whichever comes first.
 
-On successful lock acquisition returns true, otherwise returns false.
-
-
-#include <iostream>
-
-#include <thread>
-
-#include <mutex>
-
-#include <chrono>
-
-using namespace std;
+// On successful lock acquisition returns true, otherwise returns false.
 
 
+// #include <iostream>
 
-int myAmount = 0;
+// #include <thread>
 
-std::timed_mutex m;
+// #include <mutex>
 
+// #include <chrono>
 
-void increment(int i) {
-
-    auto now=std::chrono::steady_clock::now();
-
-    if(m.try_lock_until(now + std::chrono::seconds(2))){
-
-        ++myAmount;
-
-        std::this_thread::sleep_for (std::chrono::seconds(1));
-
-        cout << "Thread " << i << " Entered" << endl;
-
-        m.unlock(); 
-
-    }else{
-
-        cout << "Thread " << i << " Couldn't Enter" << endl;
-
-    }
-
-}
+// using namespace std;
 
 
-int main() {
 
-    std::thread t1(increment, 1);
+// int myAmount = 0;
 
-    std::thread t2(increment, 2);
-
-
-    t1.join();
-
-    t2.join();
+// std::timed_mutex m;
 
 
-    cout << myAmount << endl;
+// void increment(int i) {
 
-    return 0;
+//     auto now=std::chrono::steady_clock::now();
 
-}
+//     if(m.try_lock_until(now + std::chrono::seconds(2))){
+
+//         ++myAmount;
+
+//         std::this_thread::sleep_for (std::chrono::seconds(1));
+
+//         cout << "Thread " << i << " Entered" << endl;
+
+//         m.unlock(); 
+
+//     }else{
+
+//         cout << "Thread " << i << " Couldn't Enter" << endl;
+
+//     }
+
+// }
+
+
+// int main() {
+
+//     std::thread t1(increment, 1);
+
+//     std::thread t2(increment, 2);
+
+
+//     t1.join();
+
+//     t2.join();
+
+
+//     cout << myAmount << endl;
+
+//     return 0;
+
+// }
